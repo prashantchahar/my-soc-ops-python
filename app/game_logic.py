@@ -2,7 +2,7 @@ import functools
 import random
 
 from app.data import FREE_SPACE, QUESTIONS
-from app.models import BingoLine, BingoSquareData
+from app.models import BingoLine, BingoSquareData, ScavengerItem
 
 BOARD_SIZE = 5
 CENTER_INDEX = 12  # 5x5 grid, center is index 12 (row 2, col 2)
@@ -67,3 +67,21 @@ def check_bingo(board: list[BingoSquareData]) -> BingoLine | None:
 def get_winning_square_ids(line: BingoLine | None) -> set[int]:
     """Get the square IDs that are part of a winning line."""
     return set(line.squares) if line else set()
+
+
+def generate_checklist() -> list[ScavengerItem]:
+    """Generate a shuffled checklist from all available questions."""
+    questions = random.sample(QUESTIONS, len(QUESTIONS))
+    return [ScavengerItem(id=i, text=q) for i, q in enumerate(questions)]
+
+
+def toggle_item(
+    items: list[ScavengerItem], item_id: int
+) -> list[ScavengerItem]:
+    """Toggle a checklist item's checked state. Returns a new list."""
+    return [
+        item.model_copy(update={"is_checked": not item.is_checked})
+        if item.id == item_id
+        else item
+        for item in items
+    ]

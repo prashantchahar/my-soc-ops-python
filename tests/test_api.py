@@ -17,7 +17,7 @@ class TestHomePage:
     def test_home_contains_start_screen(self, client: TestClient):
         response = client.get("/")
         assert "Soc Ops" in response.text
-        assert "Start Game" in response.text
+        assert "Play Bingo" in response.text
         assert "How to play" in response.text
 
     def test_home_sets_session_cookie(self, client: TestClient):
@@ -57,7 +57,7 @@ class TestResetGame:
         client.post("/start")
         response = client.post("/reset")
         assert response.status_code == 200
-        assert "Start Game" in response.text
+        assert "Play Bingo" in response.text
         assert "How to play" in response.text
 
 
@@ -68,3 +68,38 @@ class TestDismissModal:
         response = client.post("/dismiss-modal")
         assert response.status_code == 200
         assert "FREE SPACE" in response.text
+
+
+class TestScavengerHunt:
+    def test_start_scavenger_hunt_returns_200(self, client: TestClient):
+        client.get("/")
+        response = client.post("/start-scavenger-hunt")
+        assert response.status_code == 200
+
+    def test_scavenger_hunt_shows_checklist(self, client: TestClient):
+        client.get("/")
+        response = client.post("/start-scavenger-hunt")
+        assert "Scavenger Hunt" in response.text
+        assert "Progress" in response.text
+
+    def test_scavenger_hunt_has_items(self, client: TestClient):
+        client.get("/")
+        response = client.post("/start-scavenger-hunt")
+        assert 'hx-post="/toggle-item/' in response.text
+
+    def test_toggle_item_updates_checklist(self, client: TestClient):
+        client.get("/")
+        client.post("/start-scavenger-hunt")
+        response = client.post("/toggle-item/0")
+        assert response.status_code == 200
+        assert "Scavenger Hunt" in response.text
+
+    def test_reset_from_scavenger_hunt_returns_start_screen(
+        self, client: TestClient
+    ):
+        client.get("/")
+        client.post("/start-scavenger-hunt")
+        response = client.post("/reset")
+        assert response.status_code == 200
+        assert "Play Bingo" in response.text
+        assert "Scavenger Hunt" in response.text
