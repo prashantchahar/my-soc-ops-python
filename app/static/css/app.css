@@ -502,7 +502,7 @@ button:disabled {
     background: linear-gradient(135deg, var(--accent-gold), var(--primary-magenta), var(--accent-teal));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
+    -webkit-mask-composite: exclude;
     mask-composite: exclude;
     pointer-events: none;
 }
@@ -540,6 +540,16 @@ button:disabled {
     border-radius: 0.2rem;
     background: #333;
     border: 1px solid #444;
+}
+
+/* Step card hover slide effect */
+.step-card {
+    transition: transform 0.3s ease;
+}
+
+.step-card:hover,
+.step-card:focus-within {
+    transform: translateX(8px);
 }
 
 /* Scrollable landing page layout */
