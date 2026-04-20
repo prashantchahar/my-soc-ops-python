@@ -1,15 +1,52 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl p-6 max-w-xs w-full text-center shadow-xl animate-[bounce_0.5s_ease-out]">
-        <div class="text-5xl mb-4">🎉</div>
-        <h2 class="text-3xl font-bold text-amber-500 mb-2">BINGO!</h2>
-        <p class="text-gray-600 mb-6">You completed a line!</p>
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" style="backdrop-filter: blur(4px);">
+    <div class="rounded-xl p-8 max-w-xs w-full text-center ornate-border-dashed" 
+         style="background: linear-gradient(135deg, var(--primary-magenta), var(--accent-deep-red)); border-color: var(--accent-gold); animation: fadeInBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 0 30px rgba(255, 255, 255, 0.1);">
+        <div class="text-6xl mb-6" style="animation: spinWiggle 0.8s ease-out;">🎬</div>
+        
+        <h2 class="serif-display text-4xl mb-2" style="color: var(--accent-gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.3); animation: fadeInUp 0.8s ease-out 0.2s both;">BINGO!</h2>
+        <p class="text-lg mb-6" style="color: var(--text-light); font-family: 'Playfair Display', serif; animation: fadeInUp 0.8s ease-out 0.4s both;">You completed a LINE!</p>
+        <p class="text-md mb-6" style="color: var(--accent-gold); font-style: italic; animation: fadeInUp 0.8s ease-out 0.6s both;">~ Blockbuster Performance! ~</p>
 
         <button
             hx-post="/dismiss-modal"
             hx-target="#game-container"
             hx-swap="outerHTML"
-            class="w-full bg-accent text-white font-semibold py-3 px-6 rounded-lg active:bg-accent-light transition-colors">
-            Keep Playing
+            class="w-full text-white font-bold py-4 px-6 rounded-lg text-lg font-semibold btn-glow" 
+            style="background: linear-gradient(135deg, var(--accent-gold), var(--accent-saffron)); box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4); font-family: 'Fredoka', sans-serif; transition: all 0.3s; animation: fadeInUp 0.8s ease-out 0.8s both;">
+            🎭 CONTINUE PLAYING 🎭
         </button>
     </div>
 </div>
+
+<style>
+@keyframes spinWiggle {
+    0% { transform: scale(0) rotate(-180deg); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+    100% { transform: scale(1) rotate(0); }
+}
+
+@keyframes fadeInBounce {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+</style>
