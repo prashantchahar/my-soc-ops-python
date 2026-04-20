@@ -10,6 +10,11 @@ class GameState(StrEnum):
     BINGO = "bingo"
 
 
+class GameMode(StrEnum):
+    BINGO = "bingo"
+    SCAVENGER_HUNT = "scavenger_hunt"
+
+
 class BingoSquareData(BaseModel):
     """A single square on the bingo board."""
 
@@ -29,3 +34,13 @@ class BingoLine(BaseModel):
     type: Literal["row", "column", "diagonal"] = "row"
     index: int = 0
     squares: list[int] = []
+
+
+class ScavengerItem(BaseModel):
+    """A single item in the scavenger hunt checklist."""
+
+    model_config = ConfigDict(frozen=True)
+
+    id: int
+    text: str
+    is_checked: bool = False

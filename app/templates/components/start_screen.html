@@ -13,13 +13,22 @@
             </ul>
         </div>
 
-        <button
-            hx-post="/start"
-            hx-target="#game-container"
-            hx-swap="outerHTML"
-            class="w-full bg-accent text-white font-semibold py-4 px-8 rounded-lg text-lg active:bg-accent-light transition-colors">
-            Start Game
-        </button>
+        <div class="space-y-2">
+            <button
+                hx-post="/start"
+                hx-target="#game-container"
+                hx-swap="outerHTML"
+                class="w-full bg-accent text-white font-semibold py-4 px-8 rounded-lg text-lg active:bg-accent-light transition-colors">
+                🎲 Play Bingo
+            </button>
+            <button
+                hx-post="/start-scavenger-hunt"
+                hx-target="#game-container"
+                hx-swap="outerHTML"
+                class="w-full bg-white text-gray-700 font-semibold py-4 px-8 rounded-lg text-lg border border-gray-300 active:bg-gray-100 transition-colors">
+                🔍 Scavenger Hunt
+            </button>
+        </div>
     </div>
 </div>
 </div>

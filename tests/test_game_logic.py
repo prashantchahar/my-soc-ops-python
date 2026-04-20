@@ -3,7 +3,9 @@ from app.game_logic import (
     CENTER_INDEX,
     check_bingo,
     generate_board,
+    generate_checklist,
     get_winning_square_ids,
+    toggle_item,
     toggle_square,
 )
 from app.models import BingoLine, BingoSquareData
@@ -132,3 +134,56 @@ class TestGetWinningSquareIds:
     def test_returns_square_ids(self):
         line = BingoLine(type="row", index=0, squares=[0, 1, 2, 3, 4])
         assert get_winning_square_ids(line) == {0, 1, 2, 3, 4}
+
+
+class TestGenerateChecklist:
+    def test_checklist_has_all_questions(self):
+        checklist = generate_checklist()
+        assert len(checklist) == len(QUESTIONS)
+
+    def test_checklist_items_have_sequential_ids(self):
+        checklist = generate_checklist()
+        for i, item in enumerate(checklist):
+            assert item.id == i
+
+    def test_checklist_items_are_from_questions_pool(self):
+        checklist = generate_checklist()
+        texts = {item.text for item in checklist}
+        assert texts == set(QUESTIONS)
+
+    def test_checklist_items_start_unchecked(self):
+        checklist = generate_checklist()
+        assert all(not item.is_checked for item in checklist)
+
+    def test_checklist_is_shuffled(self):
+        checklist1 = generate_checklist()
+        checklist2 = generate_checklist()
+        texts1 = [item.text for item in checklist1]
+        texts2 = [item.text for item in checklist2]
+        assert texts1 != texts2
+
+
+class TestToggleItem:
+    def test_toggle_checks_unchecked_item(self):
+        checklist = generate_checklist()
+        assert checklist[0].is_checked is False
+        new_checklist = toggle_item(checklist, 0)
+        assert new_checklist[0].is_checked is True
+
+    def test_toggle_unchecks_checked_item(self):
+        checklist = generate_checklist()
+        checklist = toggle_item(checklist, 0)
+        assert checklist[0].is_checked is True
+        checklist = toggle_item(checklist, 0)
+        assert checklist[0].is_checked is False
+
+    def test_toggle_only_affects_target_item(self):
+        checklist = generate_checklist()
+        new_checklist = toggle_item(checklist, 0)
+        for item in new_checklist[1:]:
+            assert item.is_checked is False
+
+    def test_toggle_returns_new_list(self):
+        checklist = generate_checklist()
+        new_checklist = toggle_item(checklist, 0)
+        assert checklist is not new_checklist

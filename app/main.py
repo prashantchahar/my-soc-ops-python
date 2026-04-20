@@ -8,7 +8,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
 
 from app.game_service import GameSession, get_session
-from app.models import GameState
+from app.models import GameMode, GameState
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -32,7 +32,7 @@ async def home(request: Request) -> Response:
     return templates.TemplateResponse(
         request,
         "home.html",
-        {"session": session, "GameState": GameState},
+        {"session": session, "GameState": GameState, "GameMode": GameMode},
     )
 
 
@@ -45,12 +45,30 @@ async def start_game(request: Request) -> Response:
     )
 
 
+@app.post("/start-scavenger-hunt", response_class=HTMLResponse)
+async def start_scavenger_hunt(request: Request) -> Response:
+    session = _get_game_session(request)
+    session.start_scavenger_hunt()
+    return templates.TemplateResponse(
+        request, "components/scavenger_screen.html", {"session": session}
+    )
+
+
 @app.post("/toggle/{square_id}", response_class=HTMLResponse)
 async def toggle_square(request: Request, square_id: int) -> Response:
     session = _get_game_session(request)
     session.handle_square_click(square_id)
     return templates.TemplateResponse(
         request, "components/game_screen.html", {"session": session}
+    )
+
+
+@app.post("/toggle-item/{item_id}", response_class=HTMLResponse)
+async def toggle_item(request: Request, item_id: int) -> Response:
+    session = _get_game_session(request)
+    session.handle_item_click(item_id)
+    return templates.TemplateResponse(
+        request, "components/scavenger_screen.html", {"session": session}
     )
 
 
@@ -61,7 +79,7 @@ async def reset_game(request: Request) -> Response:
     return templates.TemplateResponse(
         request,
         "components/start_screen.html",
-        {"session": session, "GameState": GameState},
+        {"session": session, "GameState": GameState, "GameMode": GameMode},
     )
 
 
