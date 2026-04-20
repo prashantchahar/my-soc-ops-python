@@ -309,3 +309,312 @@ button:disabled {
 .btn-glow:active {
     transform: scale(0.98);
 }
+
+/* ===== MAXIMALIST CINEMA POSTER ANIMATIONS ===== */
+
+@keyframes float-up-down {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes float-side {
+    0%, 100% { transform: translateX(0px) rotate(0deg); }
+    50% { transform: translateX(8px) rotate(5deg); }
+}
+
+@keyframes slow-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes slow-spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+    0% { opacity: 0; transform: translateX(-30px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+    0% { opacity: 0; transform: translateX(30px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(217, 70, 239, 0.4), 0 0 20px rgba(217, 70, 239, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(217, 70, 239, 0.8), 0 0 50px rgba(217, 70, 239, 0.5), 0 0 80px rgba(255, 107, 53, 0.3);
+    }
+}
+
+@keyframes pulse-gold-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(252, 211, 77, 0.4), 0 0 20px rgba(252, 211, 77, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(252, 211, 77, 0.8), 0 0 50px rgba(252, 211, 77, 0.5), 0 0 80px rgba(249, 115, 22, 0.3);
+    }
+}
+
+@keyframes title-flicker {
+    0%, 90%, 100% { opacity: 1; }
+    92% { opacity: 0.85; }
+    94% { opacity: 1; }
+    96% { opacity: 0.9; }
+    98% { opacity: 1; }
+}
+
+@keyframes film-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes card-hover-float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.01); }
+}
+
+@keyframes star-twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+@keyframes grain-noise {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-1%, -1%); }
+    20% { transform: translate(1%, 1%); }
+    30% { transform: translate(-1%, 1%); }
+    40% { transform: translate(1%, -1%); }
+    50% { transform: translate(-2%, 0); }
+    60% { transform: translate(2%, 0); }
+    70% { transform: translate(0, -2%); }
+    80% { transform: translate(0, 2%); }
+    90% { transform: translate(-1%, -1%); }
+}
+
+@keyframes border-dance {
+    0%, 100% { border-color: var(--accent-gold); }
+    33% { border-color: var(--primary-magenta); }
+    66% { border-color: var(--accent-teal); }
+}
+
+/* Animation utility classes */
+.animate-float { animation: float-up-down 3s ease-in-out infinite; }
+.animate-float-side { animation: float-side 4s ease-in-out infinite; }
+.animate-slow-spin { animation: slow-spin 8s linear infinite; }
+.animate-slow-spin-reverse { animation: slow-spin-reverse 10s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-pulse-gold { animation: pulse-gold-glow 2s ease-in-out infinite; }
+.animate-title-flicker { animation: title-flicker 5s ease-in-out infinite; }
+.animate-film-scroll { animation: film-scroll 15s linear infinite; }
+.animate-star-twinkle { animation: star-twinkle 1.5s ease-in-out infinite; }
+.animate-border-dance { animation: border-dance 3s ease-in-out infinite; }
+.animate-fade-in-down { animation: fadeInDown 0.8s ease-out forwards; }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+.animate-fade-in-left { animation: fadeInLeft 0.8s ease-out forwards; }
+.animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+
+/* Hover lift effect for cards */
+.card-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(217, 70, 239, 0.4), 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Film strip border */
+.film-strip-border {
+    border-top: 8px solid var(--text-dark);
+    border-bottom: 8px solid var(--text-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Grain overlay effect */
+.grain-overlay {
+    position: relative;
+}
+
+.grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    animation: grain-noise 0.5s steps(1) infinite;
+    z-index: 0;
+}
+
+/* Inner glow for sections */
+.section-inner-glow {
+    box-shadow: inset 0 0 60px rgba(217, 70, 239, 0.08), inset 0 0 120px rgba(6, 182, 212, 0.05);
+}
+
+/* Ornamental divider */
+.ornate-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--accent-gold);
+    font-size: 1.25rem;
+    letter-spacing: 0.3em;
+}
+
+.ornate-divider::before,
+.ornate-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+
+/* Testimonial gradient border */
+.testimonial-card {
+    position: relative;
+    border-radius: 0.75rem;
+    padding: 1px;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--accent-gold), var(--primary-magenta), var(--accent-teal));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Step number circle */
+.step-circle {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+/* Perforated film strip holes */
+.film-holes {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background: #111;
+}
+
+.film-hole {
+    width: 1rem;
+    height: 1.5rem;
+    border-radius: 0.2rem;
+    background: #333;
+    border: 1px solid #444;
+}
+
+/* Scrollable landing page layout */
+.landing-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Section padding */
+.section-pad {
+    padding: 3rem 1.5rem;
+}
+
+/* Feature card icon circle */
+.feature-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin: 0 auto 1rem;
+    transition: transform 0.3s ease;
+}
+
+.card-lift:hover .feature-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* Intense CTA button */
+.btn-cta-intense {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    letter-spacing: 0.1em;
+}
+
+.btn-cta-intense::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.25);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
+}
+
+.btn-cta-intense:hover::before {
+    left: 120%;
+}
+
+.btn-cta-intense:hover {
+    box-shadow: 0 0 30px rgba(217, 70, 239, 0.8), 0 0 60px rgba(255, 107, 53, 0.5), 0 0 100px rgba(252, 211, 77, 0.3);
+    transform: scale(1.05);
+}
+
+.btn-cta-intense:active {
+    transform: scale(0.97);
+}
+
+/* Floating decorative elements */
+.deco-float-1 { animation: float-up-down 3s ease-in-out infinite; }
+.deco-float-2 { animation: float-up-down 3.7s ease-in-out infinite 0.5s; }
+.deco-float-3 { animation: float-up-down 4.2s ease-in-out infinite 1s; }
+.deco-float-4 { animation: float-up-down 2.8s ease-in-out infinite 1.5s; }
+
+/* Poster style text shadow */
+.poster-title-shadow {
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.5), 0 0 30px rgba(217, 70, 239, 0.5), 0 0 60px rgba(217, 70, 239, 0.3);
+}
+
+.poster-gold-shadow {
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.5), 0 0 30px rgba(252, 211, 77, 0.6), 0 0 60px rgba(252, 211, 77, 0.3);
+}
